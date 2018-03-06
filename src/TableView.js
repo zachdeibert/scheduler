@@ -63,7 +63,7 @@ export default class TableView extends React.Component {
                                        ref={el => this.latestHAddition = el} />
                             </th>
                         ))}
-                        {this.props.horizontal == this.props.model.times && this.props.vertical == this.props.model.people && (
+                        {this.props.horizontal === this.props.model.times && this.props.vertical === this.props.model.people && (
                             <th>
                                 <input type="text" value="Impossible" className="top-cell" readOnly />
                             </th>
@@ -97,7 +97,7 @@ export default class TableView extends React.Component {
                                                vvalue={vvalue}
                                                vi={vi} />
                             ))}
-                            {this.props.horizontal == this.props.model.times && this.props.vertical == this.props.model.people && (
+                            {this.props.horizontal === this.props.model.times && this.props.vertical === this.props.model.people && (
                                 <TableCellView model={this.props.model}
                                                solver={this.props.solver}
                                                hlist={this.props.horizontal}
@@ -109,7 +109,7 @@ export default class TableView extends React.Component {
                             )}
                         </tr>
                     ))}
-                    {this.props.horizontal == this.props.model.people && this.props.vertical == this.props.model.times && (
+                    {this.props.horizontal === this.props.model.people && this.props.vertical === this.props.model.times && (
                         <tr>
                             <th>
                                 <input type="text" value="Impossible" readOnly />

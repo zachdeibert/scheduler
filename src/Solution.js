@@ -76,6 +76,6 @@ export default class Solution {
     }
 
     getUnsolved(personId) {
-        return this.events.filter(event => !event.isSolved() && event.people.filter(person => person.id == personId).length > 0);
+        return this.events.filter(event => !event.isSolved() && event.people.filter(person => person.id === personId).length > 0);
     }
 }

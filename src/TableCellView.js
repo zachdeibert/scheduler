@@ -88,10 +88,10 @@ export default class TableCellView extends React.Component {
     }
 
     render() {
-        if (this.props.hi == TableCellView.SHOW_IMPOSSIBLE || this.props.vi == TableCellView.SHOW_IMPOSSIBLE) {
+        if (this.props.hi === TableCellView.SHOW_IMPOSSIBLE || this.props.vi === TableCellView.SHOW_IMPOSSIBLE) {
             const solution = this.props.solver.getSolution();
             if (solution) {
-                const person = this.props.hi == TableCellView.SHOW_IMPOSSIBLE ? this.props.vi : this.props.hi;
+                const person = this.props.hi === TableCellView.SHOW_IMPOSSIBLE ? this.props.vi : this.props.hi;
                 const unsolved = solution.getUnsolved(person);
                 return (
                     <td className="table-cell-view">
