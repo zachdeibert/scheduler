@@ -1,0 +1,9 @@
+.table-view > tbody > tr {
+    background-color: #FFFFFF;
+}
+.table-view > tbody > tr:hover {
+    background-color: #EFEFEF;
+}
+.top-cell {
+    width: 100px;
+}

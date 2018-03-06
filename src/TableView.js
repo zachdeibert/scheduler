@@ -1,4 +1,6 @@
 import React from "react";
+import TableCellView from "./TableCellView";
+import "./TableView.css";
 
 export default class TableView extends React.Component {
     constructor(props) {
@@ -7,6 +9,9 @@ export default class TableView extends React.Component {
     }
 
     checkProps(props) {
+        if (!props.model) {
+            throw new Error("Missing model");
+        }
         if (!props.horizontal) {
             throw new Error("Missing horizontal axis");
         }
@@ -40,7 +45,7 @@ export default class TableView extends React.Component {
 
     render() {
         return (
-            <table>
+            <table className="table-view">
                 <thead>
                     <tr>
                         <th />
@@ -48,6 +53,7 @@ export default class TableView extends React.Component {
                             <th key={`option-${i}`}>
                                 <input type="text"
                                        value={value}
+                                       className="top-cell"
                                        onChange={ev => this.handleChange(this.props.horizontal, i, ev)}
                                        onBlur={ev => this.handleBlur(this.props.horizontal, i, ev)}
                                        ref={el => this.latestAddition = el} />
@@ -56,6 +62,7 @@ export default class TableView extends React.Component {
                         <th>
                             <input type="text"
                                    value=""
+                                   className="top-cell"
                                    onChange={ev => this.handleChange(this.props.horizontal, -1, ev)} />
                         </th>
                     </tr>
@@ -70,6 +77,16 @@ export default class TableView extends React.Component {
                                        onBlur={ev => this.handleBlur(this.props.vertical, vi, ev)}
                                        ref={el => this.latestAddition = el} />
                             </th>
+                            {this.props.horizontal.array.map((hvalue, hi) => (
+                                <TableCellView key={`option-${hi}`}
+                                               model={this.props.model}
+                                               hlist={this.props.horizontal}
+                                               hvalue={hvalue}
+                                               hi={hi}
+                                               vlist={this.props.vertical}
+                                               vvalue={vvalue}
+                                               vi={vi} />
+                            ))}
                         </tr>
                     ))}
                     <tr>

@@ -1,6 +1,7 @@
 import React from "react";
 import DataChooser from "./DataChooser";
 import TableView from "./TableView";
+import "./View.css";
 
 export default class View extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ export default class View extends React.Component {
 
     render() {
         return (
-            <table>
+            <table className="view">
                 <tbody>
                     <tr>
                         <td />
@@ -67,7 +68,8 @@ export default class View extends React.Component {
                                          onChange={(val, i) => this.handleChange("vertical", 1, val, i)} />
                         </td>
                         <td>
-                            <TableView horizontal={this.state.horizontal}
+                            <TableView model={this.props.model}
+                                       horizontal={this.state.horizontal}
                                        vertical={this.state.vertical}
                                        ref={el => this.table = el} />
                         </td>
