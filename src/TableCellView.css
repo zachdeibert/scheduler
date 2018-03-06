@@ -1,3 +1,7 @@
 .table-cell-view {
     text-align: center;
 }
+.unsolved-list {
+    list-style-type: none;
+    color: red;
+}

@@ -63,6 +63,11 @@ export default class TableView extends React.Component {
                                        ref={el => this.latestHAddition = el} />
                             </th>
                         ))}
+                        {this.props.horizontal == this.props.model.times && this.props.vertical == this.props.model.people && (
+                            <th>
+                                <input type="text" value="Impossible" className="top-cell" readOnly />
+                            </th>
+                        )}
                         <th>
                             <input type="text"
                                    value=""
@@ -92,8 +97,35 @@ export default class TableView extends React.Component {
                                                vvalue={vvalue}
                                                vi={vi} />
                             ))}
+                            {this.props.horizontal == this.props.model.times && this.props.vertical == this.props.model.people && (
+                                <TableCellView model={this.props.model}
+                                               solver={this.props.solver}
+                                               hlist={this.props.horizontal}
+                                               hvalue="Impossible"
+                                               hi={TableCellView.SHOW_IMPOSSIBLE}
+                                               vlist={this.props.vertical}
+                                               vvalue={vvalue}
+                                               vi={vi} />
+                            )}
                         </tr>
                     ))}
+                    {this.props.horizontal == this.props.model.people && this.props.vertical == this.props.model.times && (
+                        <tr>
+                            <th>
+                                <input type="text" value="Impossible" readOnly />
+                            </th>
+                            {this.props.horizontal.array.map((hvalue, hi) => (
+                                <TableCellView model={this.props.model}
+                                               solver={this.props.solver}
+                                               hlist={this.props.horizontal}
+                                               hvalue={hvalue}
+                                               hi={hi}
+                                               vlist={this.props.vertical}
+                                               vvalue="Impossible"
+                                               vi={TableCellView.SHOW_IMPOSSIBLE} />
+                            ))}
+                        </tr>
+                    )}
                     <tr>
                         <th>
                             <input type="text"

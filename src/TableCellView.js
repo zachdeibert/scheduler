@@ -88,7 +88,28 @@ export default class TableCellView extends React.Component {
     }
 
     render() {
-        if (this.props.hlist === this.props.vlist) {
+        if (this.props.hi == TableCellView.SHOW_IMPOSSIBLE || this.props.vi == TableCellView.SHOW_IMPOSSIBLE) {
+            const solution = this.props.solver.getSolution();
+            if (solution) {
+                const person = this.props.hi == TableCellView.SHOW_IMPOSSIBLE ? this.props.vi : this.props.hi;
+                const unsolved = solution.getUnsolved(person);
+                return (
+                    <td className="table-cell-view">
+                        <ul className="unsolved-list">
+                            {unsolved.map((event, i) => (
+                                <li key={`event-${i}`}>
+                                    {event.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </td>
+                );
+            } else {
+                return (
+                    <td className="table-cell-view" />
+                );
+            }
+        } else if (this.props.hlist === this.props.vlist) {
             if (this.props.hvalue === this.props.vvalue) {
                 return (
                     <td className="table-cell-view">
@@ -136,3 +157,5 @@ export default class TableCellView extends React.Component {
         }
     }
 }
+
+TableCellView.SHOW_IMPOSSIBLE = -9001;
