@@ -34,6 +34,7 @@ export default class Model {
             this.loadHash();
         }
         this.onChange = null;
+        this.solver = null;
     }
 
     loadHash() {
@@ -58,11 +59,11 @@ export default class Model {
                     collections[i].split("&").forEach(item => {
                         if (item !== "") {
                             let arr = item.split(",");
-                            const key1 = parseInt(arr[0]);
+                            const key1 = parseInt(arr[0], 10);
                             arr.splice(0, 1);
                             arr.forEach(key2 => {
                                 if (key2 !== "") {
-                                    this.serializableMappings[i - this.serializableCollections.length].set(key1, parseInt(key2));
+                                    this.serializableMappings[i - this.serializableCollections.length].set(key1, parseInt(key2, 10));
                                 }
                             })
                         }
@@ -90,6 +91,9 @@ export default class Model {
         window.location.hash = hash;
         if (this.onChange) {
             this.onChange();
+        }
+        if (this.solver) {
+            this.solver.handleModelUpdate();
         }
     }
 

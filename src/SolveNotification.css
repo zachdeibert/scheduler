@@ -1,0 +1,12 @@
+.solve-notification {
+    background-color: #F7F7F7;
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    width: 100px;
+    height: 30px;
+    display: none;
+}
+.solve-notification.active {
+    display: block;
+}

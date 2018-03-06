@@ -12,6 +12,9 @@ export default class TableCellView extends React.Component {
         if (!props.model) {
             throw new Error("Missing Model");
         }
+        if (!props.solver) {
+            throw new Error("Missing Solver");
+        }
         if (!props.hlist) {
             throw new Error("Missing HList");
         }
@@ -89,13 +92,13 @@ export default class TableCellView extends React.Component {
             if (this.props.hvalue === this.props.vvalue) {
                 return (
                     <td className="table-cell-view">
-                        <input type="checkbox" checked={true} />
+                        <input type="checkbox" checked={true} readOnly />
                     </td>
                 );
             } else {
                 return (
                     <td className="table-cell-view">
-                        <input type="checkbox" checked={false} />
+                        <input type="checkbox" checked={false} readOnly />
                     </td>
                 );
             }
@@ -105,12 +108,31 @@ export default class TableCellView extends React.Component {
                     <input type="checkbox" checked={this.isChecked()} onChange={this.handleChange} />
                 </td>
             );
-        } else {
+        } else if (this.props.solver.isSolving()) {
             return (
-                <td className="table-cell-view">
-                    Not Implemented
-                </td>
+                <td className="table-cell-view" />
             );
+        } else {
+            let personId, timeId;
+            if (this.props.hlist === this.props.model.people) {
+                personId = this.props.hi;
+                timeId = this.props.vi;
+            } else {
+                personId = this.props.vi;
+                timeId = this.props.hi;
+            }
+            const solution = this.props.solver.getSolution();
+            if (solution) {
+                return (
+                    <td className="table-cell-view">
+                        {solution.getEvent(personId, timeId)}
+                    </td>
+                );
+            } else {
+                return (
+                    <td className="table-cell-view" />
+                );
+            }
         }
     }
 }

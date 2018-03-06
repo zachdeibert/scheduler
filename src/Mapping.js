@@ -38,8 +38,12 @@ export default class Mapping {
         return false;
     }
 
-    listKey1() {
-        return Object.getOwnPropertyNames(this.map).filter(key1 => this.map[key1].length > 0);
+    listKey1(key2 = null) {
+        if (key2) {
+            return this.listKey1().filter(key1 => this.map[key1].indexOf(key2) >= 0);
+        } else {
+            return Object.getOwnPropertyNames(this.map).filter(key1 => this.map[key1].length > 0);
+        }
     }
 
     listKey2(key1) {
@@ -48,7 +52,7 @@ export default class Mapping {
 
     removeKey1(i) {
         this.listKey1().forEach(key => {
-            if (key == i) {
+            if (key === i) {
                 this.map[key] = [];
             } else if (key > i) {
                 this.map[key - 1] = this.map[key];
@@ -61,7 +65,7 @@ export default class Mapping {
         this.listKey1().forEach(key1 => {
             let removeI = -1;
             this.map[key1].forEach((key2, ki) => {
-                if (key2 == i) {
+                if (key2 === i) {
                     removeI = i;
                 } else if (key2 > i) {
                     --this.map[key1][ki];

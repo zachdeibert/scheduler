@@ -1,5 +1,6 @@
 import React from "react";
 import DataChooser from "./DataChooser";
+import SolveNotification from "./SolveNotification";
 import TableView from "./TableView";
 import "./View.css";
 
@@ -17,6 +18,9 @@ export default class View extends React.Component {
         if (!props.model) {
             throw new Error("View must have a model");
         }
+        if (!props.solver) {
+            throw new Error("View must have a solver");
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -25,6 +29,7 @@ export default class View extends React.Component {
 
     componentDidMount() {
         this.props.model.onChange = this.table.forceUpdate.bind(this.table);
+        this.props.solver.onStateChange = this.forceUpdate.bind(this);
     }
 
     componentWillUnmount() {
@@ -41,41 +46,45 @@ export default class View extends React.Component {
 
     render() {
         return (
-            <table className="view">
-                <tbody>
-                    <tr>
-                        <td />
-                        <td>
-                            <DataChooser options={{
-                                             "People": this.props.model.people,
-                                             "Events": this.props.model.events,
-                                             "Times": this.props.model.times
-                                         }}
-                                         orientation="horizontal"
-                                         selected={this.state.horizontal}
-                                         onChange={(val, i) => this.handleChange("horizontal", 0, val, i)} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <DataChooser options={{
-                                             "People": this.props.model.people,
-                                             "Events": this.props.model.events,
-                                             "Times": this.props.model.times
-                                         }}
-                                         orientation="vertical"
-                                         selected={this.state.vertical}
-                                         onChange={(val, i) => this.handleChange("vertical", 1, val, i)} />
-                        </td>
-                        <td>
-                            <TableView model={this.props.model}
-                                       horizontal={this.state.horizontal}
-                                       vertical={this.state.vertical}
-                                       ref={el => this.table = el} />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td />
+                            <td>
+                                <DataChooser options={{
+                                                "People": this.props.model.people,
+                                                "Events": this.props.model.events,
+                                                "Times": this.props.model.times
+                                            }}
+                                            orientation="horizontal"
+                                            selected={this.state.horizontal}
+                                            onChange={(val, i) => this.handleChange("horizontal", 0, val, i)} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <DataChooser options={{
+                                                "People": this.props.model.people,
+                                                "Events": this.props.model.events,
+                                                "Times": this.props.model.times
+                                            }}
+                                            orientation="vertical"
+                                            selected={this.state.vertical}
+                                            onChange={(val, i) => this.handleChange("vertical", 1, val, i)} />
+                            </td>
+                            <td>
+                                <TableView model={this.props.model}
+                                           solver={this.props.solver}
+                                           horizontal={this.state.horizontal}
+                                           vertical={this.state.vertical}
+                                           ref={el => this.table = el} />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <SolveNotification isSolving={this.props.solver.isSolving()} />
+            </div>
         );
     }
 }
