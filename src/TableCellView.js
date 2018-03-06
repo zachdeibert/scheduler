@@ -15,7 +15,7 @@ export default class TableCellView extends React.Component {
         if (!props.hlist) {
             throw new Error("Missing HList");
         }
-        if (!props.hvalue) {
+        if (!props.hvalue && props.hvalue !== "") {
             throw new Error("Missing HValue");
         }
         if (!props.hi && props.hi !== 0) {
@@ -24,7 +24,7 @@ export default class TableCellView extends React.Component {
         if (!props.vlist) {
             throw new Error("Missing VList");
         }
-        if (!props.vvalue) {
+        if (!props.vvalue && props.vvalue !== "") {
             throw new Error("Missing VValue");
         }
         if (!props.vi && props.vi !== 0) {

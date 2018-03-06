@@ -45,4 +45,31 @@ export default class Mapping {
     listKey2(key1) {
         return this.map[key1];
     }
+
+    removeKey1(i) {
+        this.listKey1().forEach(key => {
+            if (key == i) {
+                this.map[key] = [];
+            } else if (key > i) {
+                this.map[key - 1] = this.map[key];
+                this.map[key] = [];
+            }
+        });
+    }
+
+    removeKey2(i) {
+        this.listKey1().forEach(key1 => {
+            let removeI = -1;
+            this.map[key1].forEach((key2, ki) => {
+                if (key2 == i) {
+                    removeI = i;
+                } else if (key2 > i) {
+                    --this.map[key1][ki];
+                }
+            });
+            if (removeI >= 0) {
+                this.map[key1].splice(removeI, 1);
+            }
+        });
+    }
 }

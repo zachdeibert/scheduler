@@ -94,14 +94,15 @@ export default class Model {
     }
 
     handleDeletedPerson(i) {
-
+        this.eventPeople.removeKey2(i);
     }
 
     handleDeletedEvent(i) {
-
+        this.eventPeople.removeKey1(i);
+        this.eventTimes.removeKey1(i);
     }
 
     handleDeletedTime(i) {
-
+        this.eventTimes.removeKey2(i);
     }
 }
