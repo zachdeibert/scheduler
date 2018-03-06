@@ -1,11 +1,16 @@
 import React from "react";
+import Model from "./Model";
+import View from "./View";
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.model = new Model();
+    }
+
     render() {
         return (
-            <div>
-                Hello, world!
-            </div>
+            <View model={this.model} />
         );
     }
 }

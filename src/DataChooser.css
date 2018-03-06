@@ -1,0 +1,15 @@
+.data-chooser {
+    list-style-type: none;
+}
+.data-chooser-horizontal > li {
+    float: left;
+}
+.data-chooser > li {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    background-color: #DFDFDF;
+}
+.data-chooser > li.active {
+    background-color: #7FDFDF;
+}
